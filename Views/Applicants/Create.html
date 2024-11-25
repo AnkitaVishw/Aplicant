@@ -1,0 +1,196 @@
+@model Applicant
+
+<h2>Create Applicant</h2>
+
+<div class="container">
+    <form>
+        <h2>Applicant Registration Form</h2>
+        <!-- First Box -->
+        <h3>Personal Details</h3>
+        <div class="box">
+            <div class="row">
+                <div class="field">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="field">
+                    <label for="fatherName">Father's Name</label>
+                    <input type="text" id="fatherName" name="fatherName" required>
+                </div>
+                <div class="field">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="field">
+                    <label for="religion">Religion</label>
+                    <select id="religion" name="religion">
+                        <option value="hindu">Hindu</option>
+                        <option value="muslim">Muslim</option>
+                        <option value="christian">Christian</option>
+                        <!-- More options -->
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="caste">Caste Category</label>
+                    <select id="caste" name="caste">
+                        <option value="general">General</option>
+                        <option value="obc">OBC</option>
+                        <option value="sc">SC</option>
+                        <option value="st">ST</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="gender">Gender</label>
+                    <div>
+                        <input type="radio" id="male" name="gender" value="male" required> Male
+                        <input type="radio" id="female" name="gender" value="female"> Female
+                        <input type="radio" id="other" name="gender" value="other"> Other
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Box -->
+        <h3>Address</h3>
+        <div class="box">
+            <div class="row">
+                <div class="field">
+                    <label for="country">Country</label>
+                    <select id="country" name="country" required>
+                        <option value="india">India</option>
+                        <!-- More options -->
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="state">State</label>
+                    <select id="state" name="state" required>
+                        <option value="maharashtra">Maharashtra</option>
+                        <!-- More options -->
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="district">District</label>
+                    <select id="district" name="district" required>
+                        <option value="pune">Pune</option>
+                        <!-- More options -->
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="pinCode">Pin Code</label>
+                    <input type="text" id="pinCode" name="pinCode" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="field">
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Third Box (Qualification) -->
+        <h3>Education</h3>
+        <div class="box">
+            <div class="row">
+               
+                <div class="field">
+                    <input type="checkbox" id="qualification1" name="qualification" value="highschool">
+                    <label for="qualification1">High School</label>
+                </div>
+                <div class="field">
+                    <input type="checkbox" id="qualification1" name="qualification" value="highschool">
+                    <label for="qualification1">Intermidiate</label>
+                </div>
+                <div class="field">
+                    <input type="checkbox" id="qualification2" name="qualification" value="bachelor">
+                    <label for="qualification2">Bachelor's Degree</label>
+                </div>
+                <div class="field">
+                    <input type="checkbox" id="qualification3" name="qualification" value="masters">
+                    <label for="qualification3">Master's Degree</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fourth Box (Hobbies) -->
+        <h3>Hobbies</h3>
+        <div class="box">
+        <div>
+          <label>Hobbies</label>
+          <input type="text" name="Hobbies" id="HobbyInput" />
+          <button type="button" onclick="addHobby()">Add Hobby</button>
+          <ul id="HobbyList"></ul>
+      </div>
+    </div>
+
+        <!-- Photo and Signature Upload -->
+        <div class="upload-section">
+            <div class="upload-field">
+                <label for="photo">Photo</label>
+                <input type="file" id="photo" name="photo" accept="image/*">
+                <div id="photo-preview" class="preview"></div>
+            </div>
+            <div class="upload-field">
+                <label for="signature">Signature Uploaded</label>
+                <input type="file" id="signature" name="signature" accept="image/*">
+                <div id="signature-preview" class="preview"></div>
+            </div>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+<script>
+
+
+function addHobby() {
+var hobbyInput = document.getElementById("HobbyInput");
+var hobbyList = document.getElementById("HobbyList");
+
+var hobbyItem = document.createElement("li");
+hobbyItem.textContent = hobbyInput.value;
+hobbyList.appendChild(hobbyItem);
+
+hobbyInput.value = "";
+}
+document.getElementById('photo').addEventListener('change', function (event) {
+const photoPreview = document.getElementById('photo-preview');
+photoPreview.innerHTML = ''; // Clear previous preview
+const file = event.target.files[0];
+if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.alt = 'Uploaded Photo';
+        img.style.width = '150px';
+        img.style.height = '150px';
+        img.style.objectFit = 'cover';
+        photoPreview.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+}
+});
+
+document.getElementById('signature').addEventListener('change', function (event) {
+const signaturePreview = document.getElementById('signature-preview');
+signaturePreview.innerHTML = ''; // Clear previous preview
+const file = event.target.files[0];
+if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.alt = 'Uploaded Signature';
+        img.style.width = '150px';
+        img.style.height = '150px';
+        img.style.objectFit = 'contain';
+        signaturePreview.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+}
+});
+</script>
